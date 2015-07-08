@@ -22,8 +22,24 @@ class PlaygroundTests: XCTestCase {
     }
     
     func testExample() {
+        
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
+    }
+    
+    func myFunc(foo: String) {
+        class LocalClass {
+            let bar: String
+            init(bar: String) {
+                self.bar = bar
+            }
+            
+            func localClassFunc(b: B) {
+                NSLog("foo: \(foo), bar: \(bar), b: \(b)")
+            }
+        }
+
+        callCurried(LocalClass(bar: "bar"), LocalClass.localClassFunc)
     }
     
     func testPerformanceExample() {
@@ -32,5 +48,13 @@ class PlaygroundTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+}
+
+func callCurried<A>(a: A, closure: A -> B -> Void) {
+    closure(a)(B())
+}
+
+class B {
     
 }
